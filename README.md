@@ -1,16 +1,21 @@
-# React + Vite
+#demo :- https://rajat-das247365.github.io/issue-tracker/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight Issue Tracker built with [Tech Stack] that enables efficient management of software bugs and project tasks. It allows users to Create, Read, Update, and Delete issues with features like [e.g., status updates, assignee tracking, filtering]. This CRUD application provides a simple interface for tracking project progress. 
 
-Currently, two official plugins are available:
+Features
+Create Issues: Log new bugs or tasks with descriptions, priority levels, and statuses.
+View/Read Issues: List, search, and filter issues to quickly find relevant information.
+Update Issues: Edit existing issue details or change their status as they progress.
+Delete Issues: Remove obsolete or resolved issues from the tracker.
+Intuitive UI: A clean interface designed for quick navigation and data management. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Tech Stack
+Frontend: [e.g., React,tailwind,]
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Contribution
+Feel free to submit issues or pull requests for improvements.
+License
+MIT License.
