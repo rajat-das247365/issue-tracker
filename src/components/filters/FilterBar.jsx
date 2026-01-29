@@ -1,18 +1,29 @@
 import React from "react";
 
-const FilterBar = ({ onNewIssue }) => {
+const FilterBar = ({ onNewIssue, statusFilter,
+  setStatusFilter,
+  prioritySort,
+  setPrioritySort, }) => {
   return (
     <div className="w-full rounded-xl border border-white/10 bg-white/5 backdrop-blur-md px-4 py-3 shadow-lg shadow-cyan-500/10">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
         {/* Left: Filters (logic later) */}
         <div className="flex gap-3">
-          <select className="rounded-md bg-[#0b0f1a] px-3 py-2 text-sm text-white/80 ring-1 ring-white/10">
-            <option>All Statuses</option>
+          <select  value={statusFilter}
+  onChange={(e) => setStatusFilter(e.target.value)} className="rounded-md bg-[#0b0f1a] px-3 py-2 text-sm text-white/80 ring-1 ring-white/10">
+           <option value="All">All Statuses</option>
+  <option value="Open">Open</option>
+  <option value="In Progress">In Progress</option>
+  <option value="Closed">Closed</option>
           </select>
 
-          <select className="rounded-md bg-[#0b0f1a] px-3 py-2 text-sm text-white/80 ring-1 ring-white/10">
+          <select value={prioritySort}
+  onChange={(e) => setPrioritySort(e.target.value)} className="rounded-md bg-[#0b0f1a] px-3 py-2 text-sm text-white/80 ring-1 ring-white/10">
             <option>Sort by Priority</option>
+             <option value="None">No Sorting</option>
+  <option value="High">High → Low</option>
+  <option value="Low">Low → High</option>
           </select>
         </div>
 

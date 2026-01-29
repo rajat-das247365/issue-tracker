@@ -11,8 +11,12 @@ import IssueTable from "./components/issues/IssueTable";
 import IssueCard from "./components/issues/IssueCard";
 import CreateIssueModal from "./components/modals/CreateIssueModal";
 import DeleteConfirmModal from "./components/modals/DeleteConfirmModal";
+import EditIssueModal from "./components/modals/EditIssueModal";
 
 const App = () => {
+  const [statusFilter, setStatusFilter] = useState("All");
+const [prioritySort, setPrioritySort] = useState("None");
+
   const [state, dispatch] = useReducer(issueReducer, initialState);
 
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -23,6 +27,25 @@ const App = () => {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [issueToDelete, setIssueToDelete] = useState(null);
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+const [issueToEdit, setIssueToEdit] = useState(null);
+
+const openEdit = (issue) => {
+  setIssueToEdit(issue);
+  setIsEditOpen(true);
+};
+
+const closeEdit = () => {
+  setIssueToEdit(null);
+  setIsEditOpen(false);
+};
+
+const handleUpdateIssue = (updatedIssue) => {
+  dispatch({ type: "UPDATE_ISSUE", payload: updatedIssue });
+};
+
+
 
   const openDelete = (issue) => {
     setIssueToDelete(issue);
@@ -43,7 +66,21 @@ const App = () => {
   const closeCreate = () => setIsCreateOpen(false);
 
   // STEP 4: temporary passthrough (real filtering comes later)
-  const filteredIssues = state.issues;
+  const filteredIssues = state.issues
+  // Filter by status
+  .filter((issue) =>
+    statusFilter === "All" ? true : issue.status === statusFilter
+  )
+  // Sort by priority
+  .sort((a, b) => {
+    if (prioritySort === "None") return 0;
+
+    const order = { High: 3, Medium: 2, Low: 1 };
+    return prioritySort === "High"
+      ? order[b.priority] - order[a.priority]
+      : order[a.priority] - order[b.priority];
+  });
+
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#0b0f1a] to-[#121826] text-white">
@@ -52,7 +89,10 @@ const App = () => {
         <Navbar />
 
         {/* Filters */}
-        <FilterBar onNewIssue={openCreate}/>
+       <FilterBar onNewIssue={openCreate}   statusFilter={statusFilter}
+  setStatusFilter={setStatusFilter}
+  prioritySort={prioritySort}
+  setPrioritySort={setPrioritySort}/>
 
         {/* ===============================
             ISSUE DISPLAY
@@ -61,7 +101,7 @@ const App = () => {
         {/* Desktop */}
         <IssueTable
           issues={filteredIssues}
-          onEdit={() => {}}
+          onEdit={openEdit}
           onDelete={openDelete}
         />
 
@@ -71,7 +111,7 @@ const App = () => {
             <IssueCard
               key={issue.id}
               issue={issue}
-              onEdit={() => {}}
+              onEdit={openEdit}
               onDelete={openDelete}
             />
           ))}
@@ -87,7 +127,11 @@ const App = () => {
           onClose={closeDelete}
           onConfirm={confirmDelete}
         />
-       
+        <EditIssueModal  isOpen={isEditOpen}
+  issue={issueToEdit}
+  onClose={closeEdit}
+  onUpdate={handleUpdateIssue}/>
+        
       </div>
     </div>
   );
